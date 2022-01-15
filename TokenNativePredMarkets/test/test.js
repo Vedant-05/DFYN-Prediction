@@ -60,4 +60,21 @@ contract("PredMarketFactory", (accounts) => {
             "Already deployed"
         );
     });
+
+    it("Does not deploy if not the owner", async() => {
+        await expectRevert(
+            predMarketFactory.createMarket(
+                token,
+                oracle,
+                owner,
+                owner,
+                900,
+                60,
+                web3.utils.toWei("1"),
+                60,
+                {from: accounts[2]}
+            ),
+            "Only owner function"
+        );
+    });
 });
