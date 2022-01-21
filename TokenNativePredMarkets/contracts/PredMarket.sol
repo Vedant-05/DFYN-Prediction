@@ -40,7 +40,8 @@ contract PredMarket is Pausable {
     mapping(uint256 => mapping(address => BetInfo)) public ledger;
     mapping(address => uint256[]) public userRounds;
     uint256 public currentEpoch;
-    uint256 public interval;
+    uint256 public interval01;
+    uint256 public interval02;
     uint256 public buffer;
     address public owner;
     address public admin;
@@ -100,7 +101,8 @@ contract PredMarket is Pausable {
         address _oracle,
         address _admin,
         address _operator,
-        uint256 _interval,
+        uint256 _interval01,
+        uint256 _interval02,    //changed
         uint256 _buffer,
         uint256 _minBetAmount,
         uint256 _oracleUpdateAllowance
@@ -109,7 +111,8 @@ contract PredMarket is Pausable {
         oracle = AggregatorV3Interface(_oracle);
         admin = _admin;
         operator = _operator;
-        interval = _interval;
+        interval01 = _interval01;
+        interval02= _interval02;    //changed
         buffer = _buffer;
         minBetAmount = _minBetAmount;
         oracleUpdateAllowance = _oracleUpdateAllowance;
@@ -159,8 +162,9 @@ contract PredMarket is Pausable {
      * @dev set interval in seconds
      * callable by admin
      */
-    function setInterval(uint256 _interval) external onlyAdmin {
-        interval = _interval;
+    function setInterval(uint256 _interval01,uint256 _interval02) external onlyAdmin {
+        interval01 = _interval01;
+        interval02=_interval02;
     }
 
     /**
@@ -168,7 +172,7 @@ contract PredMarket is Pausable {
      * callable by admin
      */
     function setBuffer(uint256 _buffer) external onlyAdmin {
-        require(_buffer <= interval, "Cannot be more than interval");
+        require(_buffer <= interval01, "Cannot be more than interval");
         buffer = _buffer;
     }
 
@@ -475,10 +479,12 @@ contract PredMarket is Pausable {
     }
 
     function _startRound(uint256 epoch) internal {
+        int256 currentPrice = _getPriceFromOracle();
         Round storage round = rounds[epoch];
+         round.lockPrice = currentprice;
         round.startTime = block.timestamp;
-        round.lockTime = block.timestamp.add(interval);
-        round.endTime = block.timestamp.add(interval * 2);
+        round.lockTime = block.timestamp.add(interval01);
+        round.endTime = block.timestamp.add(interval02);
         round.epoch = epoch;
         round.totalAmount = 0;
 

@@ -19,7 +19,8 @@ contract PredMarketFactory{
         address _oracle,
         address _admin,
         address _operator,
-        uint256 _interval,
+        uint256 _interval1,
+        uint256 _interval2,
         uint256 _buffer,
         uint256 _minBetAmount,
         uint256 _oracleUpdateAllowance
@@ -34,7 +35,8 @@ contract PredMarketFactory{
             _oracle,
             _admin,
             _operator,
-            _interval,
+            _interval1,
+            _interval2,
             _buffer,
             _minBetAmount,
             _oracleUpdateAllowance

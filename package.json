@@ -1,0 +1,19 @@
+{
+  "name": "prediction-markets",
+  "version": "1.0.0",
+  "description": "Token Price Prediction Market Factory\r -------------------------------------",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shivam78288/Prediction-Markets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shivam78288/Prediction-Markets/issues"
+  },
+  "homepage": "https://github.com/Shivam78288/Prediction-Markets#readme"
+}
