@@ -62,7 +62,7 @@ contract PredMarket is Pausable {
 
     address public token;
 
-    event StartRound(uint256 indexed epoch, uint256 time);
+    event StartRound(uint256 indexed epoch, uint256 time,int256 price);
     event LockRound(uint256 indexed epoch, uint256 time, int256 price);
     event EndRound(uint256 indexed epoch, uint256 time, int256 price);
     event BetBull(
@@ -488,7 +488,7 @@ contract PredMarket is Pausable {
         round.epoch = epoch;
         round.totalAmount = 0;
 
-        emit StartRound(epoch, block.timestamp);
+        emit StartRound(epoch, block.timestamp,round.lockPrice);
     }
 
     /**
